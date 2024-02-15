@@ -5,10 +5,12 @@ import sh.squeami.kami.features.api.types.Feature;
 import sh.squeami.kami.fonts.api.CFontRenderer;
 import sh.squeami.kami.settings.impl.BooleanSetting;
 import sh.squeami.kami.settings.impl.EnumSetting;
+import sh.squeami.kami.settings.impl.NumberSetting;
 import sh.squeami.kami.uis.click.api.GuiClick;
 import sh.squeami.kami.uis.click.api.types.Component;
 import sh.squeami.kami.uis.click.impl.component.BooleanComponent;
 import sh.squeami.kami.uis.click.impl.component.EnumComponent;
+import sh.squeami.kami.uis.click.impl.component.numberComponents.DoubleComponent;
 import sh.squeami.kami.utils.render.ColorUtil;
 import sh.squeami.kami.utils.render.RenderUtil;
 
@@ -33,6 +35,11 @@ public class ClickButton {
         Kami.INSTANCE.getSettingManager().getSettingsByFeature(feature).forEach(setting -> {
             // yes this is an if chain, no I don't like it.
             // can I be bothered to change it? no.
+            if (setting instanceof NumberSetting<?> numberSetting) {
+                if (numberSetting.getValue() instanceof Double) {
+                    componentArrayList.add(new DoubleComponent(this, (NumberSetting<Double>) numberSetting));
+                }
+            }
             if (setting instanceof EnumSetting<?> enumSetting) {
                 componentArrayList.add(new EnumComponent(this, enumSetting));
             }

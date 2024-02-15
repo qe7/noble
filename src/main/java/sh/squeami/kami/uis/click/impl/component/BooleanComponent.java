@@ -48,6 +48,7 @@ public class BooleanComponent extends Component {
                 6,
                 ClickPanel.PANEL_HEIGHT - 8,
                 this.setting.getValue() ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB() : ColorUtil.color(21, 21, 21, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());
+
         RenderUtil.drawRect(this.posX + ClickPanel.PANEL_WIDTH - 10,
                 this.posY + 4,
                 6,

@@ -11,6 +11,7 @@ import sh.squeami.kami.settings.impl.BooleanSetting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
+import sh.squeami.kami.settings.impl.NumberSetting;
 
 import java.util.function.BooleanSupplier;
 
@@ -24,6 +25,8 @@ public class InterfaceFeature extends Feature {
     private final BooleanSetting FPS = new BooleanSetting("FPS", true).supplyIf(booleanSupplier);
     private final BooleanSetting MS = new BooleanSetting("MS", true).supplyIf(booleanSupplier);
     private final BooleanSetting BPS = new BooleanSetting("BPS", true).supplyIf(booleanSupplier);
+
+    private final NumberSetting<Double> test = new NumberSetting<>("Test", 0.0, 0.0, 100.0, 0.1);
 
     @EventSubscribe
     public void onRender2DListener(Render2DEvent event) {
