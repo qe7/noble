@@ -26,8 +26,6 @@ public class InterfaceFeature extends Feature {
     private final BooleanSetting MS = new BooleanSetting("MS", true).supplyIf(booleanSupplier);
     private final BooleanSetting BPS = new BooleanSetting("BPS", true).supplyIf(booleanSupplier);
 
-    private final NumberSetting<Double> test = new NumberSetting<>("Test", 0.0, 0.0, 100.0, 0.1);
-
     @EventSubscribe
     public void onRender2DListener(Render2DEvent event) {
         ScaledResolution scaledResolution = event.scaledResolution();

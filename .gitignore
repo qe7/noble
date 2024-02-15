@@ -13,6 +13,17 @@ buildNumber.properties
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
 
-MavenMCP.iml
 .idea/
+workspace/assets
+workspace/saves
 
+MavenMCP.iml
+workspace/crash-reports
+workspace/server.properties
+workspace/servers.dat
+workspace/usercache.json
+workspace/optionsof.txt
+workspace/options.txt
+
+*.log
+*.gz

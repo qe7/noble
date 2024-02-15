@@ -11,6 +11,8 @@ import sh.squeami.kami.uis.click.api.types.Component;
 import sh.squeami.kami.uis.click.impl.component.BooleanComponent;
 import sh.squeami.kami.uis.click.impl.component.EnumComponent;
 import sh.squeami.kami.uis.click.impl.component.numberComponents.DoubleComponent;
+import sh.squeami.kami.uis.click.impl.component.numberComponents.FloatComponent;
+import sh.squeami.kami.uis.click.impl.component.numberComponents.IntComponent;
 import sh.squeami.kami.utils.render.ColorUtil;
 import sh.squeami.kami.utils.render.RenderUtil;
 
@@ -38,6 +40,12 @@ public class ClickButton {
             if (setting instanceof NumberSetting<?> numberSetting) {
                 if (numberSetting.getValue() instanceof Double) {
                     componentArrayList.add(new DoubleComponent(this, (NumberSetting<Double>) numberSetting));
+                }
+                if (numberSetting.getValue() instanceof Float) {
+                    componentArrayList.add(new FloatComponent(this, (NumberSetting<Float>) numberSetting));
+                }
+                if (numberSetting.getValue() instanceof Integer) {
+                    componentArrayList.add(new IntComponent(this, (NumberSetting<Integer>) numberSetting));
                 }
             }
             if (setting instanceof EnumSetting<?> enumSetting) {
