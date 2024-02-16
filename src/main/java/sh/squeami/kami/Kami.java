@@ -30,56 +30,56 @@ public final class Kami {
         this.eventBus = new EventBus();
         this.settingManager = new SettingManager();
         this.featureManager = new FeatureManager();
-        getEventBus().register(getFeatureManager());
+        this.getEventBus().register(this.getFeatureManager());
         this.commandManager = new CommandManager();
-        getEventBus().register(getCommandManager());
+        this.getEventBus().register(this.getCommandManager());
         this.fontManager = new FontManager();
 
         this.rotationComponent = new RotationComponent();
-        getEventBus().register(getRotationComponent());
+        this.getEventBus().register(this.getRotationComponent());
         this.blinkComponent = new BlinkComponent();
-        getEventBus().register(getBlinkComponent());
+        this.getEventBus().register(this.getBlinkComponent());
     }
 
     public void initialize() {
-        getFeatureManager().initialize();
-        getCommandManager().initialize();
-        getFontManager().initialize();
+        this.getFeatureManager().initialize();
+        this.getCommandManager().initialize();
+        this.getFontManager().initialize();
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getVersion() {
-        return version;
+        return this.version;
     }
 
     public EventBus getEventBus() {
-        return eventBus;
+        return this.eventBus;
     }
 
     public SettingManager getSettingManager() {
-        return settingManager;
+        return this.settingManager;
     }
 
     public FeatureManager getFeatureManager() {
-        return featureManager;
+        return this.featureManager;
     }
 
     public CommandManager getCommandManager() {
-        return commandManager;
+        return this.commandManager;
     }
 
     public FontManager getFontManager() {
-        return fontManager;
+        return this.fontManager;
     }
 
     public RotationComponent getRotationComponent() {
-        return rotationComponent;
+        return this.rotationComponent;
     }
 
     public BlinkComponent getBlinkComponent() {
-        return blinkComponent;
+        return this.blinkComponent;
     }
 }
