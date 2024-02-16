@@ -5,9 +5,9 @@ import sh.squeami.kami.events.api.interfaces.EventSubscribe;
 import sh.squeami.kami.events.impl.game.KeyInputEvent;
 import sh.squeami.kami.features.api.enums.FeatureCategory;
 import sh.squeami.kami.features.api.types.Feature;
-import sh.squeami.kami.features.impl.movement.SprintFeature;
-import sh.squeami.kami.features.impl.render.ClickGUIFeature;
-import sh.squeami.kami.features.impl.render.InterfaceFeature;
+import sh.squeami.kami.features.impl.combat.*;
+import sh.squeami.kami.features.impl.movement.*;
+import sh.squeami.kami.features.impl.render.*;
 import sh.squeami.kami.managers.api.Manager;
 import sh.squeami.kami.settings.api.types.Setting;
 
@@ -17,7 +17,10 @@ import java.util.List;
 public class FeatureManager extends Manager<Feature> {
 
     private static final Class<? extends Feature>[] FEATURE_CLASSES = new Class[]{
-            SprintFeature.class, InterfaceFeature.class, ClickGUIFeature.class
+            VelocityFeature.class, SprintFeature.class, InterfaceFeature.class,
+
+            // might need to be last, always set it last, cba to check
+            ClickGUIFeature.class
     };
 
     public void initialize() {

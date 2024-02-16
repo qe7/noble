@@ -10,9 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface FeatureAnnotation {
-    /**
-     * Doesn't get a default value, so it must be provided.
-     */
+
     String name();
 
     String description() default "No description provided.";

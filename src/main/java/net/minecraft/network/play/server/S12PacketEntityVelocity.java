@@ -88,18 +88,27 @@ public class S12PacketEntityVelocity implements Packet<INetHandlerPlayClient>
         return this.entityID;
     }
 
-    public int getMotionX()
-    {
-        return this.motionX;
+    public int getMotionX() {
+        return motionX;
     }
 
-    public int getMotionY()
-    {
-        return this.motionY;
+    public void setMotionX(int motionX) {
+        this.motionX = motionX;
     }
 
-    public int getMotionZ()
-    {
-        return this.motionZ;
+    public int getMotionY() {
+        return motionY;
+    }
+
+    public void setMotionY(int motionY) {
+        this.motionY = motionY;
+    }
+
+    public int getMotionZ() {
+        return motionZ;
+    }
+
+    public void setMotionZ(int motionZ) {
+        this.motionZ = motionZ;
     }
 }

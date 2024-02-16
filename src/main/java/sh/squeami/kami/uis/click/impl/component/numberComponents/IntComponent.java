@@ -34,19 +34,19 @@ public class IntComponent extends Component {
         this.posX = posX;
         this.posY = posY;
 
-        int value = setting.getValue();
-        int min = setting.getMinimum();
-        int max = setting.getMaximum();
-        int percent = (value - min) / (max - min);
+        float value = setting.getValue();
+        float min = setting.getMinimum();
+        float max = setting.getMaximum();
+        float percent = (value - min) / (max - min);
 
         if (dragging) {
-            int diff = (int) Math.min(ClickPanel.PANEL_WIDTH, Math.max(0, mouseX - posX));
-            if (diff == 0) setting.setValue(min);
-            int percentNew = (int) (diff / (ClickPanel.PANEL_WIDTH - 4.0f));
-            if (percentNew < 0.0f) percentNew = (int) 0.0f;
-            if (percentNew > 1.0f) percentNew = (int) 1.0f;
-            int newValue = min + (max - min) * percentNew;
-            setting.setValue(roundToIncrement(newValue, setting.getIncrement()));
+            float diff = Math.min(ClickPanel.PANEL_WIDTH, Math.max(0, mouseX - posX));
+            if (diff == 0) setting.setValue((int) min);
+            float percentNew = diff / (ClickPanel.PANEL_WIDTH - 4.0f);
+            if (percentNew < 0.0f) percentNew = 0.0f;
+            if (percentNew > 1.0f) percentNew = 1.0f;
+            float newValue = min + (max - min) * percentNew;
+            setting.setValue(roundToIncrement((int) newValue, setting.getIncrement()));
         }
 
         // draw background of the button
@@ -56,15 +56,16 @@ public class IntComponent extends Component {
                 ClickPanel.PANEL_HEIGHT,
                 GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(20, 20, 20, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB() : ColorUtil.color(20, 20, 20, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());
 
-        RenderUtil.drawFilledRect(posX,
+        RenderUtil.drawFilledGradientRect(posX,
                 posY,
-                (float) (ClickPanel.PANEL_WIDTH * percent),
+                ClickPanel.PANEL_WIDTH * percent,
                 ClickPanel.PANEL_HEIGHT,
-                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().getRGB() : ColorUtil.color(105, 20, 25, 200).getRGB());
+                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().getRGB() : ColorUtil.color(105, 20, 25, 200).getRGB(),
+                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().darker().getRGB() : ColorUtil.color(105, 20, 25, 200).darker().getRGB());
 
         RenderUtil.drawRect(posX,
                 posY,
-                (float) (ClickPanel.PANEL_WIDTH * percent),
+                ClickPanel.PANEL_WIDTH * percent,
                 ClickPanel.PANEL_HEIGHT,
                 0.5F,
                 ColorUtil.color(0, 0, 0, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());

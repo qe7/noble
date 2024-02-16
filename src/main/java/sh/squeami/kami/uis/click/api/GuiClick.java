@@ -27,7 +27,7 @@ public class GuiClick extends GuiScreen {
         AtomicInteger x = new AtomicInteger(15);
         Arrays.stream(FeatureCategory.values()).toList().forEach(category -> {
             panelArrayList.add(new ClickPanel(category, x.get(), 15));
-            x.addAndGet((int) (ClickPanel.PANEL_WIDTH + 5));
+            x.addAndGet((int) (ClickPanel.PANEL_WIDTH + 3));
         });
     }
 

@@ -43,11 +43,12 @@ public class BooleanComponent extends Component {
         fontRenderer.drawStringWithShadow(setting.getName(), posX + 4, posY + 5, -1);
 
         // draw the checkbox
-        RenderUtil.drawFilledRect(this.posX + ClickPanel.PANEL_WIDTH - 10,
+        RenderUtil.drawFilledGradientRect(this.posX + ClickPanel.PANEL_WIDTH - 10,
                 this.posY + 4,
                 6,
                 ClickPanel.PANEL_HEIGHT - 8,
-                this.setting.getValue() ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB() : ColorUtil.color(21, 21, 21, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());
+                this.setting.getValue() ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB() : ColorUtil.color(21, 21, 21, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB(),
+                this.setting.getValue() ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB() : ColorUtil.color(21, 21, 21, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB());
 
         RenderUtil.drawRect(this.posX + ClickPanel.PANEL_WIDTH - 10,
                 this.posY + 4,

@@ -1,5 +1,7 @@
 package sh.squeami.kami.features.impl.render;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import sh.squeami.kami.Kami;
 import sh.squeami.kami.events.api.interfaces.EventSubscribe;
 import sh.squeami.kami.events.impl.render.Render2DEvent;
@@ -8,11 +10,11 @@ import sh.squeami.kami.features.api.interfaces.FeatureAnnotation;
 import sh.squeami.kami.features.api.types.Feature;
 import sh.squeami.kami.fonts.api.CFontRenderer;
 import sh.squeami.kami.settings.impl.BooleanSetting;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
-import sh.squeami.kami.settings.impl.NumberSetting;
+import sh.squeami.kami.settings.impl.EnumSetting;
+import sh.squeami.kami.settings.impl.interfaces.IEnumSetting;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.function.BooleanSupplier;
 
 @FeatureAnnotation(name = "Interface", category = FeatureCategory.RENDER, enabled = true, drawn = false)
@@ -20,11 +22,13 @@ public class InterfaceFeature extends Feature {
 
     private final BooleanSetting watermark = new BooleanSetting("Watermark", true);
     private final BooleanSetting arrayList = new BooleanSetting("ArrayList", true);
+    private final BooleanSupplier arrayListSupplier = arrayList::getValue;
+    private final EnumSetting<ArrayListType> arrayListType = new EnumSetting<>("Sort type", ArrayListType.LENGTH).supplyIf(arrayListSupplier);
     private final BooleanSetting info = new BooleanSetting("Info", true);
-    private final BooleanSupplier booleanSupplier = info::getValue;
-    private final BooleanSetting FPS = new BooleanSetting("FPS", true).supplyIf(booleanSupplier);
-    private final BooleanSetting MS = new BooleanSetting("MS", true).supplyIf(booleanSupplier);
-    private final BooleanSetting BPS = new BooleanSetting("BPS", true).supplyIf(booleanSupplier);
+    private final BooleanSupplier infoSupplier = info::getValue;
+    private final BooleanSetting FPS = new BooleanSetting("FPS", true).supplyIf(infoSupplier);
+    private final BooleanSetting MS = new BooleanSetting("MS", true).supplyIf(infoSupplier);
+    private final BooleanSetting BPS = new BooleanSetting("BPS", true).supplyIf(infoSupplier);
 
     @EventSubscribe
     public void onRender2DListener(Render2DEvent event) {
@@ -39,7 +43,21 @@ public class InterfaceFeature extends Feature {
 
         offset = 0;
         if (arrayList.getValue()) {
-            for (Feature feature : Kami.INSTANCE.getFeatureManager().getMap().values()) {
+            ArrayList<Feature> featureArrayList = new ArrayList<>(Kami.INSTANCE.getFeatureManager().getMap().values());
+
+            switch (arrayListType.getValue()) {
+                case ABC -> {
+                    featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().name().compareToIgnoreCase(o2.getFeatureAnnotation().name()));
+                }
+                case LENGTH -> {
+                    featureArrayList.sort(Comparator.comparingInt(o -> fontRenderer.getStringWidth(o.getFeatureAnnotation().name())));
+                }
+                case CATEGORY -> {
+                    featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().category().getName().compareToIgnoreCase(o2.getFeatureAnnotation().category().getName()));
+                }
+            }
+
+            for (Feature feature : featureArrayList) {
                 if (feature.getFeatureAnnotation().drawn() && feature.isEnabled()) {
                     String displayName = feature.getFeatureAnnotation().name();
 
@@ -75,6 +93,28 @@ public class InterfaceFeature extends Feature {
                 final String MS = "MS: " + (Minecraft.getMinecraft().getCurrentServerData() != null ? Minecraft.getMinecraft().getCurrentServerData().pingToServer : "0");
                 fontRenderer.drawStringWithShadow(MS, scaledResolution.getScaledWidth() - fontRenderer.getStringWidth(MS) - 2, offset, 0xFFFFFFFF);
             }
+        }
+    }
+
+    private enum ArrayListType implements IEnumSetting {
+        ABC("Alphabetical"),
+        LENGTH("Length"),
+        CATEGORY("Category");
+
+        private final String name;
+
+        ArrayListType(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public String getName() {
+            return this.name;
+        }
+
+        @Override
+        public Enum<?> getEnum(String name) {
+            return valueOf(name);
         }
     }
 }

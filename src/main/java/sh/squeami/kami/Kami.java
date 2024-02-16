@@ -1,5 +1,7 @@
 package sh.squeami.kami;
 
+import sh.squeami.kami.components.impl.BlinkComponent;
+import sh.squeami.kami.components.impl.RotationComponent;
 import sh.squeami.kami.events.api.EventBus;
 import sh.squeami.kami.managers.impl.CommandManager;
 import sh.squeami.kami.managers.impl.FeatureManager;
@@ -12,14 +14,19 @@ public final class Kami {
 
     private final String name, version;
     private final EventBus eventBus;
+
     private final SettingManager settingManager;
     private final FeatureManager featureManager;
     private final CommandManager commandManager;
     private final FontManager fontManager;
 
+    private final RotationComponent rotationComponent;
+    private final BlinkComponent blinkComponent;
+
     private Kami() {
         this.name = "Kami";
         this.version = "1.0.0";
+
         this.eventBus = new EventBus();
         this.settingManager = new SettingManager();
         this.featureManager = new FeatureManager();
@@ -27,6 +34,11 @@ public final class Kami {
         this.commandManager = new CommandManager();
         getEventBus().register(getCommandManager());
         this.fontManager = new FontManager();
+
+        this.rotationComponent = new RotationComponent();
+        getEventBus().register(getRotationComponent());
+        this.blinkComponent = new BlinkComponent();
+        getEventBus().register(getBlinkComponent());
     }
 
     public void initialize() {
@@ -61,5 +73,13 @@ public final class Kami {
 
     public FontManager getFontManager() {
         return fontManager;
+    }
+
+    public RotationComponent getRotationComponent() {
+        return rotationComponent;
+    }
+
+    public BlinkComponent getBlinkComponent() {
+        return blinkComponent;
     }
 }

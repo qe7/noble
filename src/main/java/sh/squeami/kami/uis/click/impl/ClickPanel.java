@@ -18,7 +18,7 @@ public class ClickPanel {
 
     private float posX, posY;
     private float dragX, dragY;
-    public static final float PANEL_WIDTH = 100, PANEL_HEIGHT = 14;
+    public static final float PANEL_WIDTH = 120, PANEL_HEIGHT = 14;
 
     private boolean dragging, open = true;
 
@@ -45,11 +45,12 @@ public class ClickPanel {
         }
 
         // draw panel
-        RenderUtil.drawFilledRect(posX,
+        RenderUtil.drawFilledGradientRect(posX,
                 posY,
                 PANEL_WIDTH,
                 PANEL_HEIGHT,
-                GuiClick.isHovered(posX, posY, PANEL_WIDTH, PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB() : ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());
+                GuiClick.isHovered(posX, posY, PANEL_WIDTH, PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB() : ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB(),
+                GuiClick.isHovered(posX, posY, PANEL_WIDTH, PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).darker().darker().getRGB() : ColorUtil.color(105, 20, 25, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB());
 
         // draw border
         RenderUtil.drawRect(posX,

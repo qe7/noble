@@ -56,11 +56,12 @@ public class FloatComponent extends Component {
                 ClickPanel.PANEL_HEIGHT,
                 GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(20, 20, 20, (int) (200 * GuiClick.menuAlphaPercentage)).darker().getRGB() : ColorUtil.color(20, 20, 20, (int) (200 * GuiClick.menuAlphaPercentage)).getRGB());
 
-        RenderUtil.drawFilledRect(posX,
+        RenderUtil.drawFilledGradientRect(posX,
                 posY,
-                (float) (ClickPanel.PANEL_WIDTH * percent),
+                ClickPanel.PANEL_WIDTH * percent,
                 ClickPanel.PANEL_HEIGHT,
-                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().getRGB() : ColorUtil.color(105, 20, 25, 200).getRGB());
+                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().getRGB() : ColorUtil.color(105, 20, 25, 200).getRGB(),
+                GuiClick.isHovered(posX, posY, ClickPanel.PANEL_WIDTH, ClickPanel.PANEL_HEIGHT, mouseX, mouseY) ? ColorUtil.color(105, 20, 25, 200).darker().darker().getRGB() : ColorUtil.color(105, 20, 25, 200).darker().getRGB());
 
         RenderUtil.drawRect(posX,
                 posY,
