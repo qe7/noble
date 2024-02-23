@@ -2,6 +2,7 @@ package sh.squeami.kami.managers.impl;
 
 import sh.squeami.kami.commands.api.types.Command;
 import sh.squeami.kami.commands.impl.BindCommand;
+import sh.squeami.kami.commands.impl.FakePlayerCommand;
 import sh.squeami.kami.commands.impl.ToggleCommand;
 import sh.squeami.kami.events.api.interfaces.EventSubscribe;
 import sh.squeami.kami.events.impl.packet.PacketSentEvent;
@@ -11,7 +12,7 @@ import net.minecraft.network.play.client.C01PacketChatMessage;
 public class CommandManager extends Manager<Command> {
 
     private static final Class<? extends Command>[] COMMAND_CLASSES = new Class[]{
-            ToggleCommand.class, BindCommand.class
+            ToggleCommand.class, BindCommand.class, FakePlayerCommand.class
     };
 
     public void initialize() {

@@ -32,8 +32,8 @@ public class InterfaceFeature extends Feature {
 
     @EventSubscribe
     public void onRender2DListener(Render2DEvent event) {
-        ScaledResolution scaledResolution = event.scaledResolution();
-        CFontRenderer fontRenderer = Kami.INSTANCE.getFontManager().getFontRenderer("OPEN_SANS_18");
+        final ScaledResolution scaledResolution = event.scaledResolution();
+        final CFontRenderer fontRenderer = Kami.INSTANCE.getFontManager().getFontRenderer("OPEN_SANS_18");
 
         float offset = 2;
 
@@ -46,15 +46,9 @@ public class InterfaceFeature extends Feature {
             ArrayList<Feature> featureArrayList = new ArrayList<>(Kami.INSTANCE.getFeatureManager().getMap().values());
 
             switch (arrayListType.getValue()) {
-                case ABC -> {
-                    featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().name().compareToIgnoreCase(o2.getFeatureAnnotation().name()));
-                }
-                case LENGTH -> {
-                    featureArrayList.sort(Comparator.comparingInt(o -> fontRenderer.getStringWidth(o.getFeatureAnnotation().name())));
-                }
-                case CATEGORY -> {
-                    featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().category().getName().compareToIgnoreCase(o2.getFeatureAnnotation().category().getName()));
-                }
+                case ABC -> featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().name().compareToIgnoreCase(o2.getFeatureAnnotation().name()));
+                case LENGTH -> featureArrayList.sort(Comparator.comparingInt(o -> -fontRenderer.getStringWidth(o.getFeatureAnnotation().name() + (o.getSuffix() != null ? " §7" + o.getSuffix() : ""))));
+                case CATEGORY -> featureArrayList.sort((o1, o2) -> o1.getFeatureAnnotation().category().getName().compareToIgnoreCase(o2.getFeatureAnnotation().category().getName()));
             }
 
             for (Feature feature : featureArrayList) {

@@ -12,10 +12,6 @@ public class ClickGUIFeature extends Feature {
 
     private GuiClick guiClick;
 
-    public ClickGUIFeature() {
-        guiClick = new GuiClick();
-    }
-
     @Override
     public void onEnable() {
         if (this.guiClick == null)

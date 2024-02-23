@@ -29,7 +29,7 @@ public class VelocityFeature extends Feature {
     public void onPacketReceivedListener(final PacketReceivedEvent event) {
         if (!(event.getPacket() instanceof S12PacketEntityVelocity packet)) return;
 
-        // cancels the event as if we dont and just set motion to 0, it'll slow us down
+        // cancels the event, if we dont and just set motion to 0 it'll slow us down
         if (horizontal.getValue() == 0 && vertical.getValue() == 0) {
             event.setCancelled(true);
         } else if (packet.getEntityID() == Minecraft.getMinecraft().thePlayer.getEntityId()) {

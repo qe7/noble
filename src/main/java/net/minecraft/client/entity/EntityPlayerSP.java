@@ -24,6 +24,7 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
+import org.lwjgl.util.vector.Vector2f;
 import sh.squeami.kami.Kami;
 import sh.squeami.kami.events.impl.player.MotionEvent;
 import sh.squeami.kami.events.impl.player.PostMotionEvent;
@@ -95,6 +96,9 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
     }
 
+    private MotionEvent motionEvent;
+    private PostMotionEvent postMotionEvent;
+
     public void onUpdateWalkingPlayer() {
         boolean flag = this.isSprinting();
 
@@ -121,15 +125,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
         }
 
         if (this.isCurrentViewEntity()) {
-            MotionEvent motionEvent = new MotionEvent(this.posX, this.getEntityBoundingBox().minY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
+            motionEvent = new MotionEvent(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
             Kami.INSTANCE.getEventBus().post(motionEvent);
 
-            double d0 = motionEvent.getPositionX() - this.lastReportedPosX;
-            double d1 = motionEvent.getPositionY() - this.lastReportedPosY;
-            double d2 = motionEvent.getPositionZ() - this.lastReportedPosZ;
-            double d3 = motionEvent.getRotationYaw() - this.lastReportedYaw;
-            double d4 = motionEvent.getRotationPitch() - this.lastReportedPitch;
-            // what the fuck does do these flags do??
+            double d0 = this.posX - this.lastReportedPosX;
+            double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
+            double d2 = this.posZ - this.lastReportedPosZ;
+            double d3 = this.rotationYaw - this.lastReportedYaw;
+            double d4 = this.rotationPitch - this.lastReportedPitch;
             boolean flag2 = d0 * d0 + d1 * d1 + d2 * d2 > 9.0E-4D || this.positionUpdateTicks >= 20;
             boolean flag3 = d3 != 0.0D || d4 != 0.0D;
 
@@ -162,9 +165,14 @@ public class EntityPlayerSP extends AbstractClientPlayer {
                 this.lastReportedPitch = motionEvent.getRotationPitch();
             }
 
-            PostMotionEvent postMotionEvent = new PostMotionEvent();
+            postMotionEvent = new PostMotionEvent();
             Kami.INSTANCE.getEventBus().post(postMotionEvent);
         }
+    }
+
+    // get previous yaw and pitch
+    public Vector2f getPreviousRotation() {
+        return new Vector2f(this.prevRotationYaw, this.prevRotationPitch);
     }
 
     public EntityItem dropOneItem(boolean dropAll) {

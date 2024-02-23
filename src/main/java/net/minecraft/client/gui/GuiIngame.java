@@ -143,7 +143,7 @@ public class GuiIngame extends Gui
         this.mc.getTextureManager().bindTexture(icons);
         GlStateManager.enableBlend();
 
-        Render2DEvent event = new Render2DEvent(scaledresolution);
+        Render2DEvent event = new Render2DEvent(scaledresolution, partialTicks);
         Kami.INSTANCE.getEventBus().post(event);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

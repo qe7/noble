@@ -1,6 +1,5 @@
 package sh.squeami.kami;
 
-import sh.squeami.kami.components.impl.BlinkComponent;
 import sh.squeami.kami.components.impl.RotationComponent;
 import sh.squeami.kami.events.api.EventBus;
 import sh.squeami.kami.managers.impl.CommandManager;
@@ -8,6 +7,13 @@ import sh.squeami.kami.managers.impl.FeatureManager;
 import sh.squeami.kami.managers.impl.FontManager;
 import sh.squeami.kami.managers.impl.SettingManager;
 
+/**
+ * The main class for the Kami client.
+ *
+ * <p>This class is a singleton and should be accessed through the {@link #INSTANCE} field.
+ *
+ * <p>It contains the name and version of the client, as well as the event bus, setting manager, feature manager, command manager, and font manager.
+ */
 public final class Kami {
 
     public final static Kami INSTANCE = new Kami();
@@ -21,7 +27,6 @@ public final class Kami {
     private final FontManager fontManager;
 
     private final RotationComponent rotationComponent;
-    private final BlinkComponent blinkComponent;
 
     private Kami() {
         this.name = "Kami";
@@ -37,8 +42,6 @@ public final class Kami {
 
         this.rotationComponent = new RotationComponent();
         this.getEventBus().register(this.getRotationComponent());
-        this.blinkComponent = new BlinkComponent();
-        this.getEventBus().register(this.getBlinkComponent());
     }
 
     public void initialize() {
@@ -77,9 +80,5 @@ public final class Kami {
 
     public RotationComponent getRotationComponent() {
         return this.rotationComponent;
-    }
-
-    public BlinkComponent getBlinkComponent() {
-        return this.blinkComponent;
     }
 }

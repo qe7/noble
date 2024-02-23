@@ -13,7 +13,7 @@ import org.lwjgl.input.Keyboard;
 @FeatureAnnotation(name = "Sprint", description = "Automatically sprints for you", category = FeatureCategory.MOVEMENT, enabled = true)
 public class SprintFeature extends Feature {
 
-    public static final EnumSetting<ModeEnum> mode = new EnumSetting<>("Mode", ModeEnum.RAGE);
+    public static final EnumSetting<ModeEnum> mode = new EnumSetting<>("Mode", ModeEnum.LEGIT);
 
     @Override
     public void onDisable() {
@@ -23,16 +23,16 @@ public class SprintFeature extends Feature {
     
     @EventSubscribe
     public void onTickUpdateListener(TickUpdateEvent ignored) {
-        this.setSuffix(mode.getValue().getName());
+        final Minecraft minecraft = Minecraft.getMinecraft();
 
         switch (mode.getValue()) {
             case RAGE -> {
-                final boolean shouldSprint = Minecraft.getMinecraft().thePlayer.moveForward != 0 || Minecraft.getMinecraft().thePlayer.moveStrafing != 0;
-                Minecraft.getMinecraft().thePlayer.setSprinting(shouldSprint);
+                final boolean shouldSprint = minecraft.thePlayer.moveForward != 0 || minecraft.thePlayer.moveStrafing != 0;
+                minecraft.thePlayer.setSprinting(shouldSprint);
             }
             case LEGIT -> {
-                final boolean shouldSprint = Minecraft.getMinecraft().gameSettings.keyBindForward.isKeyDown();
-                Minecraft.getMinecraft().gameSettings.keyBindSprint.setPressed(shouldSprint);
+                final boolean shouldSprint = minecraft.gameSettings.keyBindForward.isKeyDown();
+                minecraft.gameSettings.keyBindSprint.setPressed(shouldSprint);
             }
         }
     }

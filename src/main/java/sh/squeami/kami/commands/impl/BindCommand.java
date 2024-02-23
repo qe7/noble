@@ -8,7 +8,10 @@ import org.lwjgl.input.Keyboard;
 public class BindCommand extends Command {
 
     public BindCommand() {
-        super("Bind", "Binds a given feature.", "bind add [feature] [key] / bind remove [feature]", "b");
+        super("Bind",
+                "Binds a given feature.",
+                "bind add [feature] [key] / bind remove [feature]",
+                "b");
     }
 
     @Override
@@ -19,23 +22,33 @@ public class BindCommand extends Command {
         }
 
         if (args[1].equalsIgnoreCase("add")) {
-            for (Feature feature : Kami.INSTANCE.getFeatureManager().getMap().values()) {
-                if (feature.getFeatureAnnotation().name().equalsIgnoreCase(args[2])) {
-                    feature.setKeyCode(Keyboard.getKeyIndex(args[3].toUpperCase()));
-                    sendChatMessage("Bound " + feature.getFeatureAnnotation().name() + " to " + args[3] + ".");
-                    return;
-                }
-            }
+            if (handleAdd(args)) return;
         } else if (args[1].equalsIgnoreCase("remove")) {
-            for (Feature feature : Kami.INSTANCE.getFeatureManager().getMap().values()) {
-                if (feature.getFeatureAnnotation().name().equalsIgnoreCase(args[2])) {
-                    feature.setKeyCode(0);
-                    sendChatMessage("Unbound " + feature.getFeatureAnnotation().name() + ".");
-                    return;
-                }
-            }
+            if (handleRemove(args)) return;
         }
 
         sendChatMessage("Feature '" + args[2] + "' not found.");
+    }
+
+    private boolean handleAdd(String[] args) {
+        for (Feature feature : Kami.INSTANCE.getFeatureManager().getMap().values()) {
+            if (feature.getFeatureAnnotation().name().equalsIgnoreCase(args[2])) {
+                feature.setKeyCode(Keyboard.getKeyIndex(args[3].toUpperCase()));
+                sendChatMessage("Bound " + feature.getFeatureAnnotation().name() + " to " + args[3] + ".");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean handleRemove(String[] args) {
+        for (Feature feature : Kami.INSTANCE.getFeatureManager().getMap().values()) {
+            if (feature.getFeatureAnnotation().name().equalsIgnoreCase(args[2])) {
+                feature.setKeyCode(0);
+                sendChatMessage("Unbound " + feature.getFeatureAnnotation().name() + ".");
+                return true;
+            }
+        }
+        return false;
     }
 }

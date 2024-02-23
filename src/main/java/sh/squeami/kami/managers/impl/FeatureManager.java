@@ -17,9 +17,17 @@ import java.util.List;
 public class FeatureManager extends Manager<Feature> {
 
     private static final Class<? extends Feature>[] FEATURE_CLASSES = new Class[]{
-            VelocityFeature.class, SprintFeature.class, InterfaceFeature.class,
+            /* Combat */
+            KillAuraFeature.class,
+            VelocityFeature.class,
 
-            // might need to be last, always set it last, cba to check
+            /* Movement */
+            SpeedFeature.class,
+            SprintFeature.class,
+
+            /* Render */
+            BrightnessFeature.class,
+            InterfaceFeature.class,
             ClickGUIFeature.class
     };
 

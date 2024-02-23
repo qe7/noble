@@ -7,7 +7,10 @@ import sh.squeami.kami.features.api.types.Feature;
 public class ToggleCommand extends Command {
 
     public ToggleCommand() {
-        super("Toggle", "Toggles a given feature.", "toggle [feature]", "t");
+        super("Toggle",
+                "Toggles a given feature.",
+                "toggle [feature]",
+                "t");
     }
 
     @Override
