@@ -24,12 +24,11 @@ import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.*;
 import net.minecraft.world.IInteractionObject;
 import net.minecraft.world.World;
-import org.lwjgl.util.vector.Vector2f;
-import sh.squeami.kami.Kami;
-import sh.squeami.kami.events.impl.player.MotionEvent;
-import sh.squeami.kami.events.impl.player.PostMotionEvent;
-import sh.squeami.kami.events.impl.player.TickUpdateEvent;
-import sh.squeami.kami.features.impl.movement.SprintFeature;
+import sh.squeami.noble.Noble;
+import sh.squeami.noble.events.impl.player.MotionEvent;
+import sh.squeami.noble.events.impl.player.PostMotionEvent;
+import sh.squeami.noble.events.impl.player.TickUpdateEvent;
+import sh.squeami.noble.features.impl.movement.SprintFeature;
 
 public class EntityPlayerSP extends AbstractClientPlayer {
     public final NetHandlerPlayClient sendQueue;
@@ -83,7 +82,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
     public void onUpdate() {
         if (this.worldObj.isBlockLoaded(new BlockPos(this.posX, 0.0D, this.posZ))) {
             TickUpdateEvent event = new TickUpdateEvent();
-            Kami.INSTANCE.getEventBus().post(event);
+            Noble.INSTANCE.getEventBus().post(event);
 
             super.onUpdate();
 
@@ -126,7 +125,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         if (this.isCurrentViewEntity()) {
             motionEvent = new MotionEvent(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch, this.onGround);
-            Kami.INSTANCE.getEventBus().post(motionEvent);
+            Noble.INSTANCE.getEventBus().post(motionEvent);
 
             double d0 = this.posX - this.lastReportedPosX;
             double d1 = this.getEntityBoundingBox().minY - this.lastReportedPosY;
@@ -166,13 +165,13 @@ public class EntityPlayerSP extends AbstractClientPlayer {
             }
 
             postMotionEvent = new PostMotionEvent();
-            Kami.INSTANCE.getEventBus().post(postMotionEvent);
+            Noble.INSTANCE.getEventBus().post(postMotionEvent);
         }
     }
 
     // get previous yaw and pitch
-    public Vector2f getPreviousRotation() {
-        return new Vector2f(this.prevRotationYaw, this.prevRotationPitch);
+    public float[] getPreviousRotation() {
+        return new float[]{this.prevRotationYaw, this.prevRotationPitch};
     }
 
     public EntityItem dropOneItem(boolean dropAll) {
@@ -545,7 +544,7 @@ public class EntityPlayerSP extends AbstractClientPlayer {
 
         // Why does Minecraft's code have to be so shit
         // this is for "rage sprint" / "omni sprint"
-        if (Kami.INSTANCE.getFeatureManager().get(SprintFeature.class).isEnabled() &&
+        if (Noble.INSTANCE.getFeatureManager().get(SprintFeature.class).isEnabled() &&
                 SprintFeature.mode.getValue() == SprintFeature.ModeEnum.RAGE) {
             this.setSprinting(true);
         } else if (this.isSprinting()

@@ -211,8 +211,8 @@ import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.storage.MapData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import sh.squeami.kami.Kami;
-import sh.squeami.kami.events.impl.packet.PacketSentEvent;
+import sh.squeami.noble.Noble;
+import sh.squeami.noble.events.impl.packet.PacketSentEvent;
 
 public class NetHandlerPlayClient implements INetHandlerPlayClient
 {
@@ -717,7 +717,7 @@ public class NetHandlerPlayClient implements INetHandlerPlayClient
     public void addToSendQueue(Packet p_147297_1_)
     {
         PacketSentEvent event = new PacketSentEvent(p_147297_1_);
-        Kami.INSTANCE.getEventBus().post(event);
+        Noble.INSTANCE.getEventBus().post(event);
 
         if (event.isCancelled()) return;
         this.netManager.sendPacket(p_147297_1_);

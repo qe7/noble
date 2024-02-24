@@ -184,8 +184,8 @@ import org.lwjgl.opengl.GLContext;
 import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.opengl.PixelFormat;
 import org.lwjgl.util.glu.GLU;
-import sh.squeami.kami.Kami;
-import sh.squeami.kami.events.impl.game.KeyInputEvent;
+import sh.squeami.noble.Noble;
+import sh.squeami.noble.events.impl.game.KeyInputEvent;
 
 public class Minecraft implements IThreadListener, IPlayerUsage
 {
@@ -488,7 +488,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
         this.checkGLError("Post startup");
         this.ingameGUI = new GuiIngame(this);
 
-        Kami.INSTANCE.initialize();
+        Noble.INSTANCE.initialize();
 
         if (this.serverName != null)
         {
@@ -1798,7 +1798,7 @@ public class Minecraft implements IThreadListener, IPlayerUsage
                     else
                     {
                         KeyInputEvent event = new KeyInputEvent(k);
-                        Kami.INSTANCE.getEventBus().post(event);
+                        Noble.INSTANCE.getEventBus().post(event);
 
                         if (k == 1)
                         {

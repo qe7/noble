@@ -48,8 +48,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.Marker;
 import org.apache.logging.log4j.MarkerManager;
-import sh.squeami.kami.Kami;
-import sh.squeami.kami.events.impl.packet.PacketReceivedEvent;
+import sh.squeami.noble.Noble;
+import sh.squeami.noble.events.impl.packet.PacketReceivedEvent;
 
 public class NetworkManager extends SimpleChannelInboundHandler<Packet>
 {
@@ -144,7 +144,7 @@ public class NetworkManager extends SimpleChannelInboundHandler<Packet>
             try
             {
                 PacketReceivedEvent event = new PacketReceivedEvent(p_channelRead0_2_);
-                Kami.INSTANCE.getEventBus().post(event);
+                Noble.INSTANCE.getEventBus().post(event);
 
                 if (event.isCancelled()) return;
                 p_channelRead0_2_.processPacket(this.packetListener);

@@ -43,8 +43,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StringUtils;
 import net.minecraft.world.border.WorldBorder;
 import net.optifine.CustomColors;
-import sh.squeami.kami.Kami;
-import sh.squeami.kami.events.impl.render.Render2DEvent;
+import sh.squeami.noble.Noble;
+import sh.squeami.noble.events.impl.render.Render2DEvent;
 
 public class GuiIngame extends Gui
 {
@@ -144,7 +144,7 @@ public class GuiIngame extends Gui
         GlStateManager.enableBlend();
 
         Render2DEvent event = new Render2DEvent(scaledresolution, partialTicks);
-        Kami.INSTANCE.getEventBus().post(event);
+        Noble.INSTANCE.getEventBus().post(event);
 
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.getTextureManager().bindTexture(icons);

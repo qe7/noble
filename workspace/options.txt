@@ -1,12 +1,12 @@
 invertYMouse:false
 mouseSensitivity:0.40140846
-fov:0.625
+fov:0.5
 gamma:0.5
 saturation:0.0
 renderDistance:8
 guiScale:2
 particles:0
-bobView:true
+bobView:false
 anaglyph3d:false
 maxFps:260
 fboEnable:true
@@ -14,9 +14,9 @@ difficulty:2
 fancyGraphics:true
 ao:2
 renderClouds:true
-resourcePacks:["!      §fp§9rism §8[§f16§9x§8].zip"]
-incompatibleResourcePacks:[]
-lastServer:
+resourcePacks:["HL\u0027s Mashup v2"]
+incompatibleResourcePacks:["HL\u0027s Mashup v2"]
+lastServer:mc.gamster.org
 lang:en_US
 chatVisibility:0
 chatColors:true
@@ -24,7 +24,7 @@ chatLinks:true
 chatLinksPrompt:true
 chatOpacity:1.0
 snooperEnabled:true
-fullscreen:false
+fullscreen:true
 enableVsync:true
 useVbo:false
 hideServerAddress:false
@@ -97,7 +97,7 @@ soundCategory_record:0.0
 soundCategory_weather:0.0
 soundCategory_block:1.0
 soundCategory_hostile:1.0
-soundCategory_neutral:1.0
+soundCategory_neutral:0.0
 soundCategory_player:1.0
 soundCategory_ambient:0.0
 modelPart_cape:true
