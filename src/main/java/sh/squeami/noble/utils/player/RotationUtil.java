@@ -49,9 +49,9 @@ public class RotationUtil {
      */
     public static float[] getRotations(final Entity entity) {
         // Calculate the difference in the x, y, and z coordinates between the player and the entity
-        final double deltaX = entity.posX - Minecraft.getMinecraft().thePlayer.posX;
+        final double deltaX = entity.posX + (entity.posX - entity.prevPosX) - Minecraft.getMinecraft().thePlayer.posX;
         final double deltaY = entity.posY + (entity.getEyeHeight() * 0.8) - (Minecraft.getMinecraft().thePlayer.posY + Minecraft.getMinecraft().thePlayer.getEyeHeight());
-        final double deltaZ = entity.posZ - Minecraft.getMinecraft().thePlayer.posZ;
+        final double deltaZ = entity.posZ + (entity.posZ - entity.prevPosZ) - Minecraft.getMinecraft().thePlayer.posZ;
 
         // Calculate the Euclidean distance in the xz-plane between the player and the entity
         final double distance = Math.sqrt(deltaX*deltaX + deltaZ*deltaZ);

@@ -50,7 +50,7 @@ public final class Noble {
         this.getCommandManager().initialize();
         this.getFontManager().initialize();
 
-        Minecraft.getMinecraft().getSession().setUsername("opdist43");
+        Minecraft.getMinecraft().getSession().setUsername("opdist44");
     }
 
     public String getName() {
